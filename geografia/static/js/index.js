@@ -1,3 +1,5 @@
+let ciudades = [];
+
 const listarCiudades = async(idPais) =>{
 
     try{
@@ -7,7 +9,9 @@ const listarCiudades = async(idPais) =>{
         const data = await response.json()
 
         if(data.message==="Success")
-        {
+        {   
+
+            ciudades = data.ciudades;
 
             let opciones = '';
             
@@ -20,9 +24,9 @@ const listarCiudades = async(idPais) =>{
 
             cboCiudad.innerHTML = opciones;
 
-            mostrarAlcalde(data.ciudades[0].id)
+            mostrarAlcalde(ciudades[0].id)
 
-            console.log(data)
+            //console.log(data)
 
         }
         else
@@ -66,7 +70,7 @@ const listarPaises = async() =>{
 
             listarCiudades(data.paises[0].id);
 
-            console.log(data)
+            //console.log(data)
 
         }
         else
@@ -88,7 +92,9 @@ const listarPaises = async() =>{
 
 const mostrarAlcalde = (idCiudad) => {
 
-    let alcalde = "dsuniaga";
+    let ciudadEncontrada = ciudades.filter((ciudad) => ciudad.id == idCiudad)[0];
+
+    let alcalde = ciudadEncontrada.alcalde;
 
     txtAlcalde.innerHTML = "Alcalde: "+alcalde;
 
